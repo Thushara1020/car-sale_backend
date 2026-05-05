@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDTO {
-    private int id;
+    private Integer id;
     private String brand;
     private String model;
-    private double price;
+    private Double price;
     private String status;
 }
