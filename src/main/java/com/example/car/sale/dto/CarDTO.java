@@ -12,7 +12,7 @@ public class CarDTO {
 
     private Integer id;
 
-    @NotBlank(message = "")
+    @NotBlank(message = "The brand name must be present.")
     private String brand;
 
     @NotBlank(message = "The brand name must be present.")
@@ -23,7 +23,7 @@ public class CarDTO {
     private Double price;
 
     @NotBlank(message = "Enter the status (available/sold)")
-    @Pattern(regexp = "^(available|sold)$", message = "The status should only be 'available' or 'sold'.")
+    @Pattern(regexp = "(?i)^(available|sold)$", message = "The status should only be 'available' or 'sold'.")
     private String status;
 
     @Min(value = 1886, message = "The world's first car couldn't have been a year earlier.")
