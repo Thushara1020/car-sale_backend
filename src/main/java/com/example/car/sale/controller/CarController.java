@@ -2,7 +2,7 @@ package com.example.car.sale.controller;
 
 import com.example.car.sale.dto.CarDTO;
 import com.example.car.sale.service.CarService;
-import jakarta.validation.Valid; // Validation සඳහා
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

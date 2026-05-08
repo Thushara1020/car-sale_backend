@@ -22,17 +22,34 @@ public class CarServiceImpl implements CarService {
         car.setBrand(carDTO.getBrand());
         car.setModel(carDTO.getModel());
         car.setPrice(carDTO.getPrice());
-        car.setStatus(carDTO.getStatus());
+        car.setStatus(carDTO.getStatus().trim().toLowerCase());
+        car.setYear(carDTO.getYear());
 
         Car savedCar = carRepository.save(car);
 
-        return new CarDTO(savedCar.getId(), savedCar.getBrand(), savedCar.getModel(), savedCar.getPrice(), savedCar.getStatus());
+        CarDTO result = new CarDTO();
+        result.setId(savedCar.getId());
+        result.setBrand(savedCar.getBrand());
+        result.setModel(savedCar.getModel());
+        result.setPrice(savedCar.getPrice());
+        result.setStatus(savedCar.getStatus());
+        result.setYear(savedCar.getYear());
+        return result;
     }
 
     @Override
     public List<CarDTO> getAllCars() {
         return carRepository.findAll().stream()
-                .map(car -> new CarDTO(car.getId(), car.getBrand(), car.getModel(), car.getPrice(), car.getStatus()))
+                .map(car -> {
+                    CarDTO dto = new CarDTO();
+                    dto.setId(car.getId());
+                    dto.setBrand(car.getBrand());
+                    dto.setModel(car.getModel());
+                    dto.setPrice(car.getPrice());
+                    dto.setStatus(car.getStatus());
+                    dto.setYear(car.getYear());
+                    return dto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -40,7 +57,14 @@ public class CarServiceImpl implements CarService {
     public CarDTO getCarById(int id) {
         Car car = carRepository.findById(id).orElse(null);
         if (car != null) {
-            return new CarDTO(car.getId(), car.getBrand(), car.getModel(), car.getPrice(), car.getStatus());
+            CarDTO dto = new CarDTO();
+            dto.setId(car.getId());
+            dto.setBrand(car.getBrand());
+            dto.setModel(car.getModel());
+            dto.setPrice(car.getPrice());
+            dto.setStatus(car.getStatus());
+            dto.setYear(car.getYear());
+            return dto;
         }
         return null;
     }
@@ -48,8 +72,16 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDTO updateCar(int id, CarDTO carDTO) {
         if (carRepository.existsById(id)) {
-            Car car = new Car(id, carDTO.getBrand(), carDTO.getModel(), carDTO.getPrice(), carDTO.getStatus());
+            Car car = new Car();
+            car.setId(id);
+            car.setBrand(carDTO.getBrand());
+            car.setModel(carDTO.getModel());
+            car.setPrice(carDTO.getPrice());
+            car.setStatus(carDTO.getStatus().trim().toLowerCase());
+            car.setYear(carDTO.getYear());
             carRepository.save(car);
+            carDTO.setId(id);
+            carDTO.setStatus(car.getStatus());
             return carDTO;
         }
         return null;
