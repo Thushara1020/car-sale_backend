@@ -23,7 +23,7 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     public String register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Password එක හංගන්න
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "User registered successfully";
     }
